@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +14,9 @@ export class FormComponent implements OnInit {
   @Input() sendToList: object;
 
   addUser() {
+    const id = uuidv4();
     this.user = {
+      id: id,
       firstName: this.firstName,
       lastName: this.lastName,
     };
