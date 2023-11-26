@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -8,14 +8,19 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class FormComponent implements OnInit {
   firstName: string;
   lastName: string;
+  user: object;
+
+  @Input() sendToList: object;
 
   addUser() {
-    const user = {
+    this.user = {
       firstName: this.firstName,
       lastName: this.lastName,
     };
     this.firstName = '';
     this.lastName = '';
+
+    this.sendToList = this.user;
 
     // console.log(user);
   }
