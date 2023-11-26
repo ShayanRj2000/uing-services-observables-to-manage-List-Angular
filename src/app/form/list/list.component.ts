@@ -13,7 +13,9 @@ export class ListComponent implements OnInit {
   constructor() {}
 
   ngOnChanges(changes: any) {
-    this.users.push(changes.data);
+    if (!changes.data.firstChange) {
+      this.users.push(changes.data);
+    }
     console.log(this.users);
   }
 
