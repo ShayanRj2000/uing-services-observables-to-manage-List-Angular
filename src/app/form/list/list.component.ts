@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -6,7 +6,14 @@ import { Component, OnInit, Input, SimpleChange } from '@angular/core';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  users: object[] = [];
+  users: { firstName: string; lastName: string; id: any }[] = [];
+  // typesOfShoes: string[] = [
+  //   'Boots',
+  //   'Clogs',
+  //   'Loafers',
+  //   'Moccasins',
+  //   'Sneakers',
+  // ];
 
   @Input() data: object;
 
@@ -14,8 +21,9 @@ export class ListComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     if (!changes.data.firstChange) {
-      this.users.push(changes.data);
+      this.users.push(changes.data.currentValue);
     }
+
     console.log(this.users);
   }
 

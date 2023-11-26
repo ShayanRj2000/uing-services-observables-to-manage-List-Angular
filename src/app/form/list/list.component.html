@@ -1,4 +1,15 @@
-<!-- <div>
-  <p>First Name: {{ user?.firstName }}</p>
-  <p>Last Name: {{ user?.lastName }}</p>
+<!-- <div *ngFor="let user of users">
+  <p>First Name: {{ user.firstName }}</p>
+  <p>Last Name: {{ user.lastName }}</p>
 </div> -->
+
+<mat-card>
+  <mat-selection-list #shoes [multiple]="false">
+    <mat-list-option *ngFor="let user of users">
+      {{ user.firstName }}
+      {{ user.lastName }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <p>Options selected: {{ shoes.selectedOptions.selected }}</p>
+</mat-card>

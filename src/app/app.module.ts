@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FormComponent } from './form/form.component';
 import { ListComponent } from './form/list/list.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ListComponent } from './form/list/list.component';
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
