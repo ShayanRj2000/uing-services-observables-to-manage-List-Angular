@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -10,10 +10,14 @@ export class FormComponent implements OnInit {
   lastName: string;
 
   addUser() {
-    console.log('First Name:', this.firstName);
-    console.log('Last Name:', this.lastName);
+    const user = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+    };
     this.firstName = '';
     this.lastName = '';
+
+    // console.log(user);
   }
 
   constructor() {}

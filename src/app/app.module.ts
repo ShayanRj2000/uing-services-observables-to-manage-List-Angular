@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FormComponent } from './form/form.component';
-import { ListComponent } from './list/list.component';
+import { ListComponent } from './form/list/list.component';
 
 @NgModule({
   declarations: [
