@@ -9,19 +9,28 @@ import { v4 as uuidv4 } from 'uuid';
 export class FormComponent implements OnInit {
   firstName: string;
   lastName: string;
-  user: object;
+  id: any = uuidv4();
+  user: {
+    id: any;
+    firstName: string;
+    lastName: string;
+  };
 
   addUser() {
-    const id = uuidv4();
     this.user = {
-      id: id,
+      id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
     };
     this.firstName = '';
     this.lastName = '';
+  }
 
-    // console.log(user);
+  receiveDataFromChild(data: any) {
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
+    this.user.id = data.id;
+    // console.log('Received data in parent component:', data);
   }
 
   constructor() {}

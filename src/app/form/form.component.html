@@ -20,5 +20,5 @@
   </div>
 </div>
 <div>
-  <app-list [data]="user"></app-list>
+  <app-list [inData]="user" (outData)="receiveDataFromChild($event)"></app-list>
 </div>

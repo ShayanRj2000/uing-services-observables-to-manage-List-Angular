@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatCardLgImage } from '@angular/material/card';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -9,23 +8,37 @@ import { MatCardLgImage } from '@angular/material/card';
 export class ListComponent implements OnInit {
   users: { firstName: string; lastName: string; id: any }[] = [];
 
-  @Input() data: object;
+  @Input() inData: object;
+  @Output() outData = new EventEmitter<object>();
 
   constructor() {}
 
+  // ngOnChanges(changes: any) {
+  //   if (!changes.inData.firstChange) {
+  //     this.users.push(changes.inData.currentValue);
+  //   }
+  // }
+
   ngOnChanges(changes: any) {
-    if (!changes.data.firstChange) {
-      this.users.push(changes.data.currentValue);
+    if (!changes.inData.firstChange) {
+      const index = this.users.findIndex(
+        (user) => user.id === changes.inData.currentValue.id
+      );
+      if (index !== -1) {
+        // Update the existing object
+        this.users[index] = changes.inData.currentValue;
+      } else {
+        // Push a new object
+        this.users.push(changes.inData.currentValue);
+      }
     }
-
-    // console.log(this.users);
   }
 
-  editUser(id: any) {
-    console.log(id);
+  editUser(user: object) {
+    this.outData.emit(user);
   }
 
-  deleteUser(id: any) {
+  deleteUser(id: number) {
     this.users = this.users.filter((user) => user.id !== id);
   }
 

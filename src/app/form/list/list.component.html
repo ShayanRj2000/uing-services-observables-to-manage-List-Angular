@@ -5,7 +5,7 @@
 
 <mat-card>
   <mat-selection-list #select [multiple]="false">
-    <mat-list-option *ngFor="let user of users" [value]="user.id">
+    <mat-list-option *ngFor="let user of users" [value]="user">
       <div>
         {{ user.firstName }}
         {{ user.lastName }}
@@ -23,7 +23,7 @@
     <button
       mat-mini-fab
       color="warn"
-      (click)="deleteUser(select.selectedOptions.selected[0].value)"
+      (click)="deleteUser(select.selectedOptions.selected[0].value.id)"
     >
       <mat-icon>delete</mat-icon>
     </button>
