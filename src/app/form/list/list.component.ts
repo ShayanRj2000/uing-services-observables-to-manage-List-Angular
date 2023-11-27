@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatCardLgImage } from '@angular/material/card';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +18,15 @@ export class ListComponent implements OnInit {
       this.users.push(changes.data.currentValue);
     }
 
-    console.log(this.users);
+    // console.log(this.users);
+  }
+
+  editUser(id: any) {
+    console.log(id);
+  }
+
+  deleteUser(id: any) {
+    console.log(id);
   }
 
   ngOnInit(): void {}
