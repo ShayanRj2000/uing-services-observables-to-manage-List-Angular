@@ -4,12 +4,30 @@
 </div> -->
 
 <mat-card>
-  <mat-selection-list #shoes [multiple]="false">
+  <mat-selection-list [multiple]="false">
     <mat-list-option *ngFor="let user of users">
-      {{ user.firstName }}
-      {{ user.lastName }}
+      <div>
+        {{ user.firstName }}
+        {{ user.lastName }}
+      </div>
     </mat-list-option>
   </mat-selection-list>
-
-  <p>Options selected: {{ shoes.selectedOptions.selected }}</p>
+  <div>
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label="Example icon button with a delete icon"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      color="warn"
+      aria-label="Example icon button with a delete icon"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <!-- <p>Options selected: {{ shoes.selectedOptions.selected }}</p>
+</mat-card> -->
 </mat-card>

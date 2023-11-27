@@ -7,13 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   users: { firstName: string; lastName: string; id: any }[] = [];
-  // typesOfShoes: string[] = [
-  //   'Boots',
-  //   'Clogs',
-  //   'Loafers',
-  //   'Moccasins',
-  //   'Sneakers',
-  // ];
 
   @Input() data: object;
 
