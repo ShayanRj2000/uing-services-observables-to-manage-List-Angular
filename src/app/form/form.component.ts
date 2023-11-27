@@ -7,21 +7,28 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
+  edit: boolean = false;
+  editId: any;
   firstName: string;
   lastName: string;
-  id: any = uuidv4();
-  user: {
-    id: any;
-    firstName: string;
-    lastName: string;
-  };
+  user: { id: any; firstName: string; lastName: string };
 
   addUser() {
-    this.user = {
-      id: this.id,
-      firstName: this.firstName,
-      lastName: this.lastName,
-    };
+    if (this.edit == false) {
+      const id = uuidv4();
+      this.user = {
+        id: id,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      };
+    } else {
+      this.user = {
+        id: this.editId,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      };
+      this.edit = false;
+    }
     this.firstName = '';
     this.lastName = '';
   }
@@ -29,8 +36,8 @@ export class FormComponent implements OnInit {
   receiveDataFromChild(data: any) {
     this.firstName = data.firstName;
     this.lastName = data.lastName;
-    this.user.id = data.id;
-    // console.log('Received data in parent component:', data);
+    this.editId = data.id;
+    this.edit = true;
   }
 
   constructor() {}
