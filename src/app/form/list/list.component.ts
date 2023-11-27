@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
   }
 
   deleteUser(id: any) {
-    console.log(id);
+    this.users = this.users.filter((user) => user.id !== id);
   }
 
   ngOnInit(): void {}
