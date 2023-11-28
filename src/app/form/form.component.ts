@@ -9,26 +9,27 @@ import { v4 as uuidv4 } from 'uuid';
 export class FormComponent implements OnInit {
   edit: boolean = false;
   editId: any;
+
   firstName: string;
   lastName: string;
+
   user: { id: any; firstName: string; lastName: string };
 
   addUser() {
-    if (this.edit == false) {
+    this.user = {
+      id: 0,
+      firstName: this.firstName,
+      lastName: this.lastName,
+    };
+
+    if (!this.edit) {
       const id = uuidv4();
-      this.user = {
-        id: id,
-        firstName: this.firstName,
-        lastName: this.lastName,
-      };
+      this.user.id = id;
     } else {
-      this.user = {
-        id: this.editId,
-        firstName: this.firstName,
-        lastName: this.lastName,
-      };
+      this.user.id = this.editId;
       this.edit = false;
     }
+
     this.firstName = '';
     this.lastName = '';
   }
