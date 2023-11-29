@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '../user.service';
 
 @Component({
   selector: 'app-form',
@@ -9,18 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 export class FormComponent implements OnInit {
   edit: boolean = false;
   editId: any;
-
   firstName: string;
   lastName: string;
-
-  user: { id: any; firstName: string; lastName: string };
+  user: User;
 
   addUser() {
-    this.user = {
-      id: 0,
-      firstName: this.firstName,
-      lastName: this.lastName,
-    };
+    this.user = new User(0, this.firstName, this.lastName);
 
     if (!this.edit) {
       const id = uuidv4();

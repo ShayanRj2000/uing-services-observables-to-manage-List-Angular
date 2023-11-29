@@ -13,12 +13,6 @@ export class ListComponent implements OnInit {
 
   constructor() {}
 
-  // ngOnChanges(changes: any) {
-  //   if (!changes.inData.firstChange) {
-  //     this.users.push(changes.inData.currentValue);
-  //   }
-  // }
-
   ngOnChanges(changes: any) {
     if (!changes.inData.firstChange) {
       const index = this.users.findIndex(
