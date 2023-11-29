@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { User } from '../user.service';
+import { User, UserService } from '../user.service';
 
 @Component({
   selector: 'app-form',
@@ -8,6 +8,8 @@ import { User } from '../user.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
+  constructor(private userService: UserService) {}
+
   edit: boolean = false;
   editId: any;
   firstName: string;
@@ -25,6 +27,8 @@ export class FormComponent implements OnInit {
       this.edit = false;
     }
 
+    this.userService.sendUserAdd(this.user);
+
     this.firstName = '';
     this.lastName = '';
   }
@@ -35,8 +39,6 @@ export class FormComponent implements OnInit {
     this.editId = data.id;
     this.edit = true;
   }
-
-  constructor() {}
 
   ngOnInit(): void {}
 }

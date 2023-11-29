@@ -16,13 +16,13 @@ export class UserService {
     return this.userAdd.asObservable();
   }
 
-  sendUserEdit(data: User) {
-    this.userEdit.next(data);
-  }
+  // sendUserEdit(data: User) {
+  //   this.userEdit.next(data);
+  // }
 
-  getData() {
-    return this.userEdit.asObservable();
-  }
+  // getUserEdit() {
+  //   return this.userEdit.asObservable();
+  // }
 
   constructor() {}
 }

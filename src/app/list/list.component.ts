@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { User, UserService } from '../user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -6,35 +8,59 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  users: { firstName: string; lastName: string; id: any }[] = [];
+  users: User[] = [];
+  receivedUser: User;
+  private dataSubscription: Subscription;
 
-  @Input() inData: object;
-  @Output() outData = new EventEmitter<object>();
+  // @Input() inData: object;
+  // @Output() outData = new EventEmitter<object>();
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnChanges(changes: any) {
-    if (!changes.inData.firstChange) {
+  ngOnInit() {
+    this.dataSubscription = this.userService.getUserAdd().subscribe((data) => {
+      this.receivedUser = data;
+
       const index = this.users.findIndex(
-        (user) => user.id === changes.inData.currentValue.id
+        (user) => user.id === this.receivedUser.id
       );
+      
       if (index !== -1) {
         // Update the existing object
-        this.users[index] = changes.inData.currentValue;
+        this.users[index] = this.receivedUser;
       } else {
         // Push a new object
-        this.users.push(changes.inData.currentValue);
+        this.users.push(this.receivedUser);
       }
-    }
+    });
+
+    console.log(this.receivedUser);
   }
 
+  // ngOnChanges(changes: any) {
+  //   if (!changes.inData.firstChange) {
+  //     const index = this.users.findIndex(
+  //       (user) => user.id === this.receivedUser.id
+  //     );
+  //     if (index !== -1) {
+  //       // Update the existing object
+  //       this.users[index] = this.receivedUser;
+  //     } else {
+  //       // Push a new object
+  //       this.users.push(this.receivedUser);
+  //     }
+  //   }
+  // }
+
   editUser(user: object) {
-    this.outData.emit(user);
+    // this.outData.emit(user);
   }
 
   deleteUser(id: number) {
     this.users = this.users.filter((user) => user.id !== id);
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
+  }
 }
