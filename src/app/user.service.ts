@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +16,13 @@ export class UserService {
     return this.userAdd.asObservable();
   }
 
-  // sendUserEdit(data: User) {
-  //   this.userEdit.next(data);
-  // }
+  sendUserEdit(data: User) {
+    this.userEdit.next(data);
+  }
 
-  // getUserEdit() {
-  //   return this.userEdit.asObservable();
-  // }
+  getUserEdit() {
+    return this.userEdit.asObservable();
+  }
 
   constructor() {}
 }

@@ -34,8 +34,8 @@ export class ListComponent implements OnInit {
     console.log(this.receivedUser);
   }
 
-  editUser(user: object) {
-    // this.outData.emit(user);
+  editUser(user: User) {
+    this.userService.sendUserEdit(user);
   }
 
   deleteUser(id: number) {

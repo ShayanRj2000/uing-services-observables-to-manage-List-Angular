@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class FormComponent implements OnInit {
   form: FormGroup;
-  edit: boolean = false;
+  editMode: boolean = false;
   editId: any;
   user: User;
   private dataSubscription: Subscription;
@@ -26,7 +26,19 @@ export class FormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataSubscription = this.userService
+      .getUserEdit()
+      .subscribe((user: User) => {
+        this.editMode = true;
+        this.editId = user.id;
+
+        this.form.patchValue({
+          firstName: user.firstName,
+          lastName: user.lastName,
+        });
+      });
+  }
 
   addUser() {
     if (this.form.invalid) {
@@ -36,11 +48,12 @@ export class FormComponent implements OnInit {
     let rawVal = this.form.getRawValue();
     this.user = new User(0, rawVal.firstName, rawVal.lastName);
 
-    if (!this.edit) {
-      this.user.id = uuidv4();
+    if (!this.editMode) {
+      const id = uuidv4();
+      this.user.id = id;
     } else {
       this.user.id = this.editId;
-      this.edit = false;
+      this.editMode = false;
     }
 
     this.userService.sendUserAdd(this.user);
