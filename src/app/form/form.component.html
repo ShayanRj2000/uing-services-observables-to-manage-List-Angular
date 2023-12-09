@@ -2,14 +2,16 @@
   <div fxLayout="row" fxLayoutAlign="space-evenly center">
     <mat-card>
       <div>
-        <mat-form-field appearance="fill">
-          <mat-label>First Name</mat-label>
-          <input matInput [(ngModel)]="firstName" name="firstName" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input matInput [(ngModel)]="lastName" name="lastName" />
-        </mat-form-field>
+        <form [formGroup]="form">
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" name="firstName" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" name="lastName" />
+          </mat-form-field>
+        </form>
       </div>
       <div>
         <button mat-stroked-button color="primary" (click)="addUser()">

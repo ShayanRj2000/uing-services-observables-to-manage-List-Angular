@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { User, UserService } from '../user.service';
+import { FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -8,37 +13,41 @@ import { User, UserService } from '../user.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  constructor(private userService: UserService) {}
-
+  form: FormGroup;
   edit: boolean = false;
   editId: any;
-  firstName: string;
-  lastName: string;
   user: User;
+  private dataSubscription: Subscription;
+
+  constructor(private userService: UserService, private fb: FormBuilder) {
+    this.form = fb.group({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+    });
+  }
+
+  ngOnInit() {}
 
   addUser() {
-    this.user = new User(0, this.firstName, this.lastName);
+    if (this.form.invalid) {
+      return;
+    }
+
+    let rawVal = this.form.getRawValue();
+    this.user = new User(0, rawVal.firstName, rawVal.lastName);
 
     if (!this.edit) {
-      const id = uuidv4();
-      this.user.id = id;
+      this.user.id = uuidv4();
     } else {
       this.user.id = this.editId;
       this.edit = false;
     }
 
     this.userService.sendUserAdd(this.user);
-
-    this.firstName = '';
-    this.lastName = '';
+    this.form.reset();
   }
 
-  receiveDataFromChild(data: any) {
-    this.firstName = data.firstName;
-    this.lastName = data.lastName;
-    this.editId = data.id;
-    this.edit = true;
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
-
-  ngOnInit(): void {}
 }
